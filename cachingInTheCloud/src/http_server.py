@@ -7,9 +7,14 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        print(f"self = {self}") 
-        self._set_headers()
-        self.wfile.write("GET request for {}".format(self).encode('utf-8'))
+#         print(f"self = {self}") 
+#         self._set_headers()
+        if self.path == "put":
+            self.wfile.write("Put request {}".format().encode('utf-8'))
+        else if self.path == "get":
+            self.wfile.write("Put request {}".format().encode('utf-8'))
+        else if self.path == "healthcheck":
+            self.wfile.write("Ok {}".format().encode('utf-8'))
         
     def do_POST(self):
         '''Reads post request body'''
