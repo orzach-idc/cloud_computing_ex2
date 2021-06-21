@@ -1,15 +1,46 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer # python3
+from datetime import datetime
+
+host = ''
+port = 80
+instance_cache = dict()
+
+def get_live_nodes():
+#     TODO - implement
+    return []
+
+def redirect_request(request_type, ip):
+#     TODO - implement
+    pass
+
+def write_request_handler(str_key, data, expiration_date):
+    instance_cache[str_key] = [data, expiration_date]
+    return
+
+def read_request_handler(str_key):
+    tup = instance_cache.get(str_key)
+    cur_date = datetime.strptime(tup[1], '%d-%m-%Y')
+    
+    if tup:
+        if cur_date <= datetime.now()):
+            return tup[0]
+        else:
+            instance_cache.pop(str_key)
+        
+    return None
+        
+
 
 class HandleRequests(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
-#         self.send_header('Content-type', 'text/html')
         self.end_headers()
 
     def do_GET(self):
 #         print(f"self = {self}") 
         self._set_headers()
         if self.path == "/get":
+            read_request_handler(self[0])
             self.wfile.write("get request".format().encode('utf-8'))
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
@@ -23,6 +54,5 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             self.wfile.write("received post request:<br>{}".format(post_body))
             self.wfile.write("put request".format().encode('utf-8'))
 
-host = ''
-port = 80
 HTTPServer((host, port), HandleRequests).serve_forever()
+
