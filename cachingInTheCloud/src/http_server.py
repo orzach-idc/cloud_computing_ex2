@@ -5,7 +5,7 @@ from furl import furl
 host = ''
 port = 80
 instance_cache = dict()
-instance_cache['test'] = ('orhilla', '22-06-21')
+instance_cache['test'] = ('orhilla', '22-06-2021')
 
 def get_live_nodes():
 #     TODO - implement
@@ -22,14 +22,14 @@ def write_request_handler(str_key, data, expiration_date):
 def read_request_handler(str_key):
     tup = instance_cache.get(str_key, None)
     cur_date = datetime.strptime(tup[1], '%d-%m-%Y')
-    return cur_date
-#     if tup:
-#         if cur_date <= datetime.now():
-#             return tup[0]
-#         else:
-#             instance_cache.pop(str_key)
+ 
+    if tup:
+        if cur_date <= datetime.now():
+            return tup[0]
+        else:
+            instance_cache.pop(str_key)
         
-#     return None
+    return None
         
 
 
