@@ -38,7 +38,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
-        self.wfile.write("get request".format(self.path).encode('utf-8'))
+        self.wfile.write("get request {}".format(self.path).encode('utf-8'))
 #         if self.path == "/get":
 # #             read_request_handler(self.reqe)
 #             self.wfile.write("get request".format(self).encode('utf-8'))
