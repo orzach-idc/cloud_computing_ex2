@@ -22,5 +22,5 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(response.getvalue())
 
 
-httpd = HTTPServer((0.0.0.0/0, 80), SimpleHTTPRequestHandler)
+httpd = HTTPServer(('localhost', 80), SimpleHTTPRequestHandler)
 httpd.serve_forever()
