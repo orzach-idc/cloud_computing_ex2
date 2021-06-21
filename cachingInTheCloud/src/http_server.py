@@ -8,7 +8,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
 #         print(f"self = {self}") 
-#         self._set_headers()
+        self._set_headers()
         if self.path == "put":
             self.wfile.write("Put request {}".format().encode('utf-8'))
         elif self.path == "get":
