@@ -8,7 +8,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
-#         self.wfile.write("received get request")
+        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
         
     def do_POST(self):
         '''Reads post request body'''
