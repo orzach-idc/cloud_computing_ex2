@@ -2,13 +2,13 @@
 sudo apt update
 
 # installing pip for python 3
-sudo apt install python3-pip
+sudo apt --yes --force-yes install python3-pip
 
 # installing aws cli
-sudo pip3 install --upgrade awscli
+sudo pip3 --yes --force-yes install --upgrade awscli
 
 # installing aws sam 
-sudo pip3 install aws-sam-cli
+sudo pip3  --yes --force-yes install aws-sam-cli
 
 #installing furl
-sudo pip install furl 
+sudo pip --yes --force-yes install furl 
