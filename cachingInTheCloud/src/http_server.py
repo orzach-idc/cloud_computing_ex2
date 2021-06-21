@@ -22,8 +22,8 @@ def write_request_handler(str_key, data, expiration_date):
 def read_request_handler(str_key):
     tup = instance_cache.get(str_key, None)
     cur_date = datetime.strptime(tup[1], '%d-%m-%Y')
-    return (cur_date, tup)
-    if tup:
+    if tup != None:
+        return 1
         if cur_date <= datetime.now():
             return tup[0]
         else:
