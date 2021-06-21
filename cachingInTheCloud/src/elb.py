@@ -9,7 +9,7 @@ ec2 = boto3.client('ec2')
 ec2_user_data = """#cloud-config
 
 runcmd:
- - echo hello > hello.txt
+ - echo hello > home/ubuntu/hello.txt
 """
 
 def init_security_groups(vpc_id):
