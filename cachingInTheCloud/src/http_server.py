@@ -7,6 +7,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        print(f"self = {self}") 
         self._set_headers()
         self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
         
