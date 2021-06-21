@@ -11,4 +11,4 @@ sudo pip3 install --upgrade awscli
 sudo pip3 install aws-sam-cli
 
 #installing furl
-pip install furl 
+sudo pip install furl 
