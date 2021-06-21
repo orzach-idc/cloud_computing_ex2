@@ -49,9 +49,12 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if f.path == "/read":
             response = read_request_handler(f.args['str_key'])
-            self.wfile.write("get request = {}".format(response).encode('utf-8'))
+            self.wfile.write("read request = {}".format(response).encode('utf-8'))
+            
         elif f.path == "/get":
 #             send read request to 2 ec2 by getting ip from hash func
+            self.wfile.write("get request ".format().encode('utf-8'))
+    
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
         
@@ -61,9 +64,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if f.path =="/write":
             response = write_request_handler(f.args['str_key'], f.args['data'], f.args['expiration_date'])
-            self.wfile.write("put request {}".format(response).encode('utf-8'))
-        elif f.path == "/get":
+            self.wfile.write("write request {}".format(response).encode('utf-8'))
+            
+        elif f.path == "/put":
 #             send write request to 2 ec2 by getting ip from hash func
-
+            self.wfile.write("put request ".format().encode('utf-8'))
 HTTPServer((host, port), HandleRequests).serve_forever()
 
