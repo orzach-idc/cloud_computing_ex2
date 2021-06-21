@@ -20,7 +20,7 @@ def write_request_handler(str_key, data, expiration_date):
     return
 
 def read_request_handler(str_key):
-    tup = instance_cache.get(str_key)
+    tup = instance_cache.get(str_key, None)
     cur_date = datetime.strptime(tup[1], '%d-%m-%Y')
     
     if tup:
@@ -42,11 +42,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         self._set_headers()
         f = furl(self.path)
         if f.path == "/get":
-            self.wfile.write("get request = {}".format(f.args).encode('utf-8'))
-#             response = read_request_handler(f.args["str_key"])
-#             self.wfile.write("get request = {}".format(response).encode('utf-8'))
-#         elif self.path == "/healthcheck":
-#             self.wfile.write("Ok".format().encode('utf-8'))
+            response = read_request_handler(f.args['str_key'])
+            self.wfile.write("get request = {}".format(response).encode('utf-8'))
+        elif self.path == "/healthcheck":
+            self.wfile.write("Ok".format().encode('utf-8'))
         
     def do_POST(self):
         '''Reads post request body'''
