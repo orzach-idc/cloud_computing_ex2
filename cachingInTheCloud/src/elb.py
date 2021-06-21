@@ -6,8 +6,11 @@ PREFIX="cache-elb"
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
-ec2_user_data = '''#!/bin/bash
-echo 'test' > /tmp/hello'''
+ec2_user_data = """#cloud-config
+
+runcmd:
+ - echo hello > hello.txt
+"""
 
 def init_security_groups(vpc_id):
     try:
