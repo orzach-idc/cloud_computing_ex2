@@ -5,7 +5,7 @@ from furl import furl
 host = ''
 port = 80
 instance_cache = dict()
-instance_cache['test'] = ('orhilla', '22-6-21')
+instance_cache['test'] = ('orhilla', '22-06-21')
 
 def get_live_nodes():
 #     TODO - implement
