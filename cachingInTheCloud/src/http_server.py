@@ -40,8 +40,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 #         print(f"self = {self}") 
         self._set_headers()
         if self.path == "/get":
-            read_request_handler(self[0])
-            self.wfile.write("get request".format().encode('utf-8'))
+#             read_request_handler(self.reqe)
+            self.wfile.write("get request".format(self.request).encode('utf-8'))
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
         
