@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer # python3
 from datetime import datetime
+import urlparse
 
 host = ''
 port = 80
@@ -38,7 +39,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
-        self.wfile.write("get request {}".format(self.path[0]).encode('utf-8'))
+        par = urlparse.parse_qs(urlparse.urlparse(self.path).query)
+        self.wfile.write("get request {}".format(par).encode('utf-8'))
 #         if self.path == "/get":
 # #             read_request_handler(self.reqe)
 #             self.wfile.write("get request".format(self).encode('utf-8'))
