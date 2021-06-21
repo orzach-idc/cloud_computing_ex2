@@ -180,7 +180,7 @@ def create_ec2_instances(num_instances):
           MinCount = int(num_instances), 
           MaxCount = int(num_instances), 
           InstanceType = "t2.micro",
-          UserDate = ec2_init)
+          UserData = ec2_init)
     return instances
 
 
