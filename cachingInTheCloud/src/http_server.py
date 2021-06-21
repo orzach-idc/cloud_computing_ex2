@@ -11,9 +11,9 @@ class HandleRequests(BaseHTTPRequestHandler):
 #         self._set_headers()
         if self.path == "put":
             self.wfile.write("Put request {}".format().encode('utf-8'))
-        else if self.path == "get":
+        elif self.path == "get":
             self.wfile.write("Put request {}".format().encode('utf-8'))
-        else if self.path == "healthcheck":
+        elif self.path == "healthcheck":
             self.wfile.write("Ok {}".format().encode('utf-8'))
         
     def do_POST(self):
