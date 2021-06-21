@@ -48,14 +48,14 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if f.path == "/read":
             response = read_request_handler(f.args['str_key'])
-            self.wfile.write("read request response:/n{}".format(response).encode('utf-8'))
+            self.wfile.write("read request response: {}".format(response).encode('utf-8'))
             
 #         elif f.path == "/get":
 # #             send read request to 2 ec2 by getting ip from hash func
 #             live_nodes = get_live_nodes()
 #             node_ip = hash_func(f.args['str_key']) % len(live_nodes)
 #             response = redirect_request('read', node_ip, f.args)
-#             self.wfile.write("get request response/n{} ".format(response).encode('utf-8'))
+#             self.wfile.write("get request response: {} ".format(response).encode('utf-8'))
     
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
@@ -66,7 +66,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if f.path =="/write":
             response = write_request_handler(f.args['str_key'], f.args['data'], f.args['expiration_date'])
-            self.wfile.write("write request response:/n{}".format(response).encode('utf-8'))
+            self.wfile.write("write request response: {}".format(response).encode('utf-8'))
             
 #         elif f.path == "/put":
 #             send write request to 2 ec2 by getting ip from hash func
@@ -75,6 +75,6 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             response = redirect_request('write', node_ip, f.args)
 #             while not response:
 #                 wait(10)
-#             self.wfile.write("put request {}".format(response).encode('utf-8'))
+#             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
 HTTPServer((host, port), HandleRequests).serve_forever()
 
