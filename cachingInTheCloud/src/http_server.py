@@ -22,7 +22,7 @@ def read_request_handler(str_key):
     cur_date = datetime.strptime(tup[1], '%d-%m-%Y')
     
     if tup:
-        if cur_date <= datetime.now()):
+        if cur_date <= datetime.now():
             return tup[0]
         else:
             instance_cache.pop(str_key)
