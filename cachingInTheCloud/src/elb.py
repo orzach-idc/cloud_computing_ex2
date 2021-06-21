@@ -6,6 +6,14 @@ PREFIX="cache-elb"
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
+ec2_user_data = """
+#!/bin/bash
+git clone https://github.com/orzach-idc/cloud_computing_ex2.git
+cd cloud_computing_ex2/cachingInTheCloud/src
+chmod 777 *.sh
+./ec2_init.sh 
+sudo python3 test.py
+"""
 
 def init_security_groups(vpc_id):
     try:
@@ -179,7 +187,8 @@ def create_ec2_instances(num_instances):
           ImageId = 'ami-09e67e426f25ce0d7',
           MinCount = int(num_instances), 
           MaxCount = int(num_instances), 
-          InstanceType = "t2.micro")
+          InstanceType = "t2.micro",
+          UserData = ec2_user_data)
     return instances
 
 
