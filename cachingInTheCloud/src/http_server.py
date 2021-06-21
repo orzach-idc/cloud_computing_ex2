@@ -1,10 +1,11 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer # python3
 from datetime import datetime
-import urlparse
+from furl import furl
 
 host = ''
 port = 80
 instance_cache = dict()
+instance_cache['test'] = ('orhilla', '22-6-21')
 
 def get_live_nodes():
 #     TODO - implement
@@ -39,13 +40,12 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
-        par = urlparse.parse_qs(urlparse.urlparse(self.path).query)
-        self.wfile.write("get request {}".format(par).encode('utf-8'))
-#         if self.path == "/get":
-# #             read_request_handler(self.reqe)
-#             self.wfile.write("get request".format(self).encode('utf-8'))
-#         elif self.path == "/healthcheck":
-#             self.wfile.write("Ok".format().encode('utf-8'))
+        f = furl(self.path)
+        if f.path == "/get":
+            response = read_request_handler(f.args["str_key"])
+            self.wfile.write("get request = {}".format(response).encode('utf-8'))
+        elif self.path == "/healthcheck":
+            self.wfile.write("Ok".format().encode('utf-8'))
         
     def do_POST(self):
         '''Reads post request body'''
