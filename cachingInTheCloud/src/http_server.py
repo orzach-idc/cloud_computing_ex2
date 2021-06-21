@@ -18,9 +18,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         '''Reads post request body'''
         self._set_headers()
         if self.path =="/put":
-            content_len = int(self.headers.getheader('content-length', 0))
-            post_body = self.rfile.read(content_len)
-            self.wfile.write("received post request:<br>{}".format(post_body))
+#             content_len = int(self.headers.getheader('content-length', 0))
+#             post_body = self.rfile.read(content_len)
+#             self.wfile.write("received post request:<br>{}".format(post_body))
+            self.wfile.write("put request".format().encode('utf-8'))
 
 host = ''
 port = 80
