@@ -9,7 +9,7 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_GET(self):
 #         print(f"self = {self}") 
         self._set_headers()
-        elif self.path == "/get":
+        if self.path == "/get":
             self.wfile.write("get request".format().encode('utf-8'))
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
