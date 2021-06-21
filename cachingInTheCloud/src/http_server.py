@@ -1,4 +1,3 @@
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer # python2
 from http.server import BaseHTTPRequestHandler, HTTPServer # python3
 
 class HandleRequests(BaseHTTPRequestHandler):
