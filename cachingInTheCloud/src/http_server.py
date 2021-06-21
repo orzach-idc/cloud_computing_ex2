@@ -37,13 +37,13 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-#         print(f"self = {self}") 
         self._set_headers()
-        if self.path == "/get":
-#             read_request_handler(self.reqe)
-            self.wfile.write("get request".format(self).encode('utf-8'))
-        elif self.path == "/healthcheck":
-            self.wfile.write("Ok".format().encode('utf-8'))
+        self.wfile.write("get request".format(self).encode('utf-8'))
+#         if self.path == "/get":
+# #             read_request_handler(self.reqe)
+#             self.wfile.write("get request".format(self).encode('utf-8'))
+#         elif self.path == "/healthcheck":
+#             self.wfile.write("Ok".format().encode('utf-8'))
         
     def do_POST(self):
         '''Reads post request body'''
