@@ -9,11 +9,11 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_GET(self):
 #         print(f"self = {self}") 
         self._set_headers()
-        if self.path == "put":
+        if self.path.equals("put"):
             self.wfile.write("Put request {}".format().encode('utf-8'))
-        elif self.path == "get":
+        elif self.path.equals("get"):
             self.wfile.write("Put request {}".format().encode('utf-8'))
-        elif self.path == "healthcheck":
+        elif self.path.equals("healthcheck"):
             self.wfile.write("Ok {}".format().encode('utf-8'))
         
     def do_POST(self):
