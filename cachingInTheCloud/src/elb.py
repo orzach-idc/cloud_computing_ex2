@@ -10,6 +10,7 @@ ec2 = boto3.client('ec2')
 ec2_user_data = """#cloud-config
 
 runcmd:
+- cd home/ubuntu
 - git clone https://github.com/orzach-idc/cloud_computing_ex2.git
 - cd cloud_computing_ex2/cachingInTheCloud/src
 - chmod 777 *.sh
