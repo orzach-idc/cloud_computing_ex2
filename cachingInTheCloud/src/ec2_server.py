@@ -86,7 +86,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             send write request to 2 ec2 by getting ip from hash func
             live_nodes = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
-            response = put_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args)
-            self.wfile.write("put request response: {}".format(response).encode('utf-8'))
+#             response = put_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args)
+            self.wfile.write("put request response: {}".format(node_id).encode('utf-8'))
 HTTPServer((host, port), HandleRequests).serve_forever()
 
