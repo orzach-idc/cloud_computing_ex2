@@ -179,12 +179,13 @@ def get_targets_status():
             healthy.append(target["Target"])
     return test, sick
 
-def get_instance_ip(instance_id):
+def get_instance_public_dns_name(instance_id):
     filters = [{
         "Name": "instance-id",
         "Values": [instance_id],
     }]
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicDnsName']
+
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
           ImageId = 'ami-09e67e426f25ce0d7',
