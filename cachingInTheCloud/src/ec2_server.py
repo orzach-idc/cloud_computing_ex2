@@ -159,7 +159,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = put_request_handler(ip1 , ip2, f.args)
             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
 try:
-    current_live_node_count = len(get_live_nodes())
+    current_live_node_count = len(get_live_nodes()[0])
     update_thread = threading.Thread(target=check_for_update, args=[current_live_node_count]) 
     update_thread.start()
     HTTPServer((host, port), HandleRequests).serve_forever()
