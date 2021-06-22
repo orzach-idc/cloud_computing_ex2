@@ -12,9 +12,9 @@ ec2_user_data = """#cloud-config
 
 runcmd:
 - cd home/ubuntu
-- export AWS_ACCESS_KEY_ID = """ + os.environ.get("AWS_ACCESS_KEY_ID") + """
-- export AWS_SECRET_ACCESS_KEY_ID = """ + os.environ.get("AWS_SECRET_ACCESS_KEY_ID") + """
-- export AWS_DEFAULT_REGION = """ + os.environ.get("AWS_DEFAULT_REGION") + """
+- export AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID") 
+- export AWS_SECRET_ACCESS_KEY_ID = os.environ.get("AWS_SECRET_ACCESS_KEY_ID")
+- export AWS_DEFAULT_REGION = os.environ.get("AWS_DEFAULT_REGION")
 - git clone https://github.com/orzach-idc/cloud_computing_ex2.git
 - cd cloud_computing_ex2/cachingInTheCloud/src
 - chmod 777 *.sh
