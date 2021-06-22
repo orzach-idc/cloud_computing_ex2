@@ -19,13 +19,13 @@ my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").con
 def get_live_nodes():
     return elb.get_targets_status()
 
-def check_for_update():
+def check_for_update(current_live_node_count):
     global flag
     flag = True
     while flag:
 #         requests.post("http://3.236.176.74/check")
         print('check')
-        live_nodes, sick = get_live_nodes(current_live_node_count)
+        live_nodes, sick = get_live_nodes()
         print(f"live={len(live_nodes)}, prev={current_live_node_count}")
         if current_live_node_count != len(live_nodes):
             current_live_node_count = len(live_nodes)
