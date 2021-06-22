@@ -7,7 +7,7 @@ PREFIX="cache-elb"
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
-
+print(os.environ.get("AWS_ACCESS_KEY_ID"), os.environ.get("AWS_SECRET_ACCESS_KEY_ID"), os.environ.get("AWS_DEFAULT_REGION"))
 ec2_user_data = f"""#cloud-config
 
 runcmd:
