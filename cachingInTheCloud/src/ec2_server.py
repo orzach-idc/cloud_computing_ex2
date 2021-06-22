@@ -23,6 +23,8 @@ def check_for_update(node_count):
         if current_live_node_count != node_count:
             update_all_instances()
         time.sleep(30)
+        if !flag:
+            print('killed')
 
 def update_all_instances():
     for item in instance_cache.items():
