@@ -68,10 +68,10 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             send read request to 2 ec2 by getting ip from hash func
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
-            ip1 = elb.get_instance_public_dns_name(live_nodes[node_id])
+#             ip1 = elb.get_instance_public_dns_name(live_nodes[node_id])
 #             response = get_request_handler(ip1 , ip1, f.args['str_key'])
             
-            self.wfile.write("get request response: {} ".format(ip1).encode('utf-8'))
+            self.wfile.write("get request response: {} ".format(live_nodes[node_id]).encode('utf-8'))
     
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
