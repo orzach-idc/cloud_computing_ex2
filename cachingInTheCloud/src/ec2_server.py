@@ -30,10 +30,10 @@ def get_request_handler(ip1, ip2, request_args):
 #     response2 = None
     request1 = f"http://{ip1}/read"
 #     request2 = f"http://{ip2}/read"
-    response1 = requests.get(request1, request_args)
+#     response1 = requests.get(request1, request_args)
 #     response2 = request.get(request2, request_args)
     
-    return response1
+    return request1
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
