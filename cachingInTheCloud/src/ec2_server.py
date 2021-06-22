@@ -71,7 +71,7 @@ def redirect_request(ip, request_args, request_path):
             response = requests.post(request, params = request_args)
 #             response = requests.post(request)
             if response != None:
-               response = response.text 
+               response = response.text.split(': ')[1] 
         else:
             response = requests.get(request, params = request_args)
             
@@ -81,9 +81,6 @@ def redirect_request(ip, request_args, request_path):
     else:
         if request_path == 'write':
             response = write_request_handler(request_args['str_key'], request_args['data'], request_args['expiration_date'])
-            
-            if response is not None:
-                response = response.text.split(': ')[1]
         else:
             response = read_request_handler(request_args['str_key'])
         
