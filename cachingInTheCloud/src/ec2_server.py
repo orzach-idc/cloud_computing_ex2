@@ -9,7 +9,7 @@ import threading
 import time
 
 
-
+global count
 host = ''
 port = 80
 instance_cache = dict()
@@ -23,6 +23,7 @@ def check_for_update():
     global flag
     flag = True
     while flag:
+        print(count)
 #         requests.post("http://3.236.176.74/check")
         print('check')
         live_nodes, sick = get_live_nodes()
