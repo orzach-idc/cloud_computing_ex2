@@ -202,8 +202,3 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":
     ensure_elb_setup_created()
-    os.environ["AWS_ACCESS_KEY_ID"] = sys.argv[1]
-    os.environ["AWS_SECRET_ACCESS_KEY_ID"] = sys.argv[2]
-    os.environ["AWS_DEFAULT_REGION"] = sys.argv[3]
-
-
