@@ -4,7 +4,6 @@ import elb
 import os
 
 if __name__=="__main__":
-    print(os.environ.get("AWS_ACCESS_KEY_ID"))
     instances = elb.create_ec2_instances(sys.argv[1])
                                               
     for i in range(len(instances["Instances"])):
