@@ -102,7 +102,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if f.path == "/read":
 #             response = read_request_handler(f.args['str_key'])
-            self.wfile.write("read request response: {}".format(f.args['str_key']).encode('utf-8'))
+            self.wfile.write("read request response: {}".format(f.args).encode('utf-8'))
             
         elif f.path == "/get":
 #             send read request to 2 ec2 by getting ip from hash func
