@@ -13,8 +13,7 @@ import time
 host = ''
 port = 80
 instance_cache = dict()
-global current_live_nodes_count
-current_live_nodes_count = 0
+
 my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").content).decode()
 
 def get_live_nodes():
@@ -27,7 +26,7 @@ def check_for_update():
 #         requests.post("http://3.236.176.74/check")
         print('check')
         live_nodes, sick = get_live_nodes()
-        print(f"live={len(live_nodes)}, prev={current_live_node_count}")
+#         print(f"live={len(live_nodes)}, prev={current_live_node_count}")
         if current_live_node_count != len(live_nodes):
             current_live_node_count = len(live_nodes)
             update_all_instances()
