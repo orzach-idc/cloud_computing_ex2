@@ -48,7 +48,7 @@ def hash_func(str_key, node_count):
 def redirect_request(ip, request_args, request_path):
     response = None
     if ip != my_ip:
-        request1 = f"http://{ip}/{request_path}"
+        request = f"http://{ip}/{request_path}"
         if request_path == 'write':
             response = requests.post(request, params = request_args)
             if response != None:
