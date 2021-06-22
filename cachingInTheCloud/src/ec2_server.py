@@ -28,7 +28,7 @@ def put_request_handler(ip1, ip2, request_args):
 def get_request_handler(ip1, ip2, request_args):
     response1 = None
 #     response2 = None
-    request1 = f"http://{3.239.57.23}:80/read"
+    request1 = f"http://3.239.57.23:80/read"
 #     request2 = f"http://{ip2}/read"
     response1 = requests.get(request1, params = request_args)
 #     response2 = request.get(request2, request_args)
