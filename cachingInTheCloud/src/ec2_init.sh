@@ -18,6 +18,3 @@ sudo pip install xxhash
 
 # installing jump
 sudo pip install jump-consistent-hash
-
-#installing os
-sudo pip install os
