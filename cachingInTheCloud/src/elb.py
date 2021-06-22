@@ -176,9 +176,9 @@ def get_targets_status():
         if target["TargetHealth"]["State"] == "unhealthy":
             sick[target["Target"]["Id"]] = target["TargetHealth"]["Description"]
         else:
-            
+            test = ec2.instances.filter(InstanceIds=[target["Target"]]))
             healthy.append(target["Target"])
-    return healthy, sick
+    return test, sick
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
