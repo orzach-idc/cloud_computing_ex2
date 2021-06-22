@@ -9,6 +9,7 @@ import requests
 host = ''
 port = 80
 instance_cache = dict()
+my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").content).decode()
 
 def get_live_nodes():
     return elb.get_targets_status()
@@ -18,22 +19,38 @@ def hash_func(str_key, node_count):
     return jump.hash(vnode_id, node_count)
 
 def put_request_handler(ip1, ip2, request_args):
-    request1 = f"http://{ip1}/write"
-    request2 = f"http://{ip2}/write"
-    response1 = request.post(request1, request_args)
-    response2 = request.post(request2, request_args)
+    response1 = None
+    response2 = None
+    if ip1 != my_ip:
+        request1 = f"http://{ip1}/write"
+        response1 = requests.post(request1, params = request_args)
+    else:
+        response1 = write_request_handler(request_args['str_key'])
     
-    return reponse1.status_code, response2.status_code
+    if ip2 != my_ip:
+        request2 = f"http://{ip2}/write"
+        response2 = requests.post(request2, params = request_args)
+    else:
+        response2 = write_request_handler(request_args['str_key'])
+    
+    return if response1 != None response1.text else response2.text
 
 def get_request_handler(ip1, ip2, request_args):
     response1 = None
-#     response2 = None
-    request1 = f"http://3.239.57.23/read"
-#     request2 = f"http://{ip2}/read"
-    response1 = requests.get(request1, params = request_args)
-#     response2 = request.get(request2, request_args)
+    response2 = None
+    if ip1 != my_ip:
+        request1 = f"http://{ip1}/read"
+        response1 = requests.get(request1, params = request_args)
+    else:
+        read_request_handler(request_args['str_key'])
     
-    return response1.text.split(': ')[1]
+    if ip2 != my_ip:
+        request2 = f"http://{ip2}/read"
+        response2 = requests.get(request2, params = request_args)
+    else:
+        read_request_handler(request_args['str_key'])
+        
+    return if response1 != None response1.text.split(': ')[1] else response2.text.split(': ')[1] 
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
