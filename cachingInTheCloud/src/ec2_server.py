@@ -21,25 +21,24 @@ def is_node_count_changed(node_count):
 
 def update_all_instances():
     for item in instance_cache.items():
-# #         delete expired item from cache
-          print(item)
-#         item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
-#         if item_expiration_date < datetime.now():
-#             instance_cache.pop(item[0])
-# #         check if instance update required
-#         else:
-#             live_nodes, sick = get_live_nodes()
-#             node_id1 = hash_func(f.args['str_key'], len(live_nodes))
-#             node_id2 = (node_id1 + 1) % len(live_nodes)
-#             ip1 = elb.get_instance_public_ip(live_nodes[node_id1]['Id'])
-#             ip2 = elb.get_instance_public_ip(live_nodes[node_id2]['Id'])
-#             request_args = {
-#                 'str_key': item[0],
-#                 'data': item[1][0],
-#                 'expiration_date': item[1][1]
-#             }
-#             redirect_request(ip1, request_args, 'write') 
-#             redirect_request(ip2, request_args, 'write') 
+#         delete expired item from cache
+        item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
+        if item_expiration_date < datetime.now():
+            instance_cache.pop(item[0])
+#         check if instance update required
+        else:
+            live_nodes, sick = get_live_nodes()
+            node_id1 = hash_func(f.args['str_key'], len(live_nodes))
+            node_id2 = (node_id1 + 1) % len(live_nodes)
+            ip1 = elb.get_instance_public_ip(live_nodes[node_id1]['Id'])
+            ip2 = elb.get_instance_public_ip(live_nodes[node_id2]['Id'])
+            request_args = {
+                'str_key': item[0],
+                'data': item[1][0],
+                'expiration_date': item[1][1]
+            }
+            redirect_request(ip1, request_args, 'write') 
+            redirect_request(ip2, request_args, 'write') 
             
 
 def hash_func(str_key, node_count):
