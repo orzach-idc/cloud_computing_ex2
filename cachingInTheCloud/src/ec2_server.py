@@ -17,16 +17,15 @@ def get_live_nodes():
     return elb.get_targets_status()
 
 def check_for_update(node_count):
-    print('thread created')
     global flag
     flag = True
     while flag:
-        print('update check')
+        requests.post("http://3.236.176.74/check)
         if current_live_node_count != node_count:
             update_all_instances()
         time.sleep(30)
         if not flag:
-            print('killed')
+            requests.post("http://3.236.176.74/kill)
 
 def update_all_instances():
     for item in instance_cache.items():
