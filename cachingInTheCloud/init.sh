@@ -14,4 +14,5 @@ sudo pip3 install aws-sam-cli
 sudo aws configure
 
 # setting credentials environment variables 
+cd ~/.aws
 sudo python3 set_environ_variables.py
