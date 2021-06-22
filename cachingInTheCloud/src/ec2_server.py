@@ -156,6 +156,6 @@ if __name__ == "__main__":
 #     finally:
 #         flag = False
     finally:
-        return
+        exit()
 
 
