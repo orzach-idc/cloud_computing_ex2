@@ -7,7 +7,6 @@ PREFIX="cache-elb"
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
-x,y,z = 'a','b','c'
 ec2_user_data = f"""#cloud-config
 
 runcmd:
@@ -16,9 +15,10 @@ runcmd:
 - cd cloud_computing_ex2/cachingInTheCloud/src
 - chmod 777 *.sh
 - ./ec2_init.sh 
-- export AWS_ACCESS_KEY_ID={x}
-- export AWS_SECRET_ACCESS_KEY_ID={y}
-- export AWS_DEFAULT_REGION={z} 
+- echo {os.environ.get("AWS_ACCESS_KEY_ID")} > /home/ubuntu/credentials_info
+- echo {os.environ.get("AWS_SECRET_ACCESS_KEY_ID")} >> /home/ubuntu/credentials_info
+- echo {os.environ.get("AWS_DEFAULT_REGION")} >> /home/ubuntu/credentials_info
+
 - sudo python3 elb.py
 - sudo python3 ec2_server.py
 """
