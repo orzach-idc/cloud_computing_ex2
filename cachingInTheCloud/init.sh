@@ -11,9 +11,7 @@ sudo pip3 install --upgrade awscli
 sudo pip3 install aws-sam-cli
 
 # Configure AWS setup
-aws configure
+sudo aws configure
 
-# # setting credentials environment variables 
-cd .aws
-python3 ../cloud_computing_ex2/cachingInTheCloud/src set_environ_variables.py
- 
+# setting credentials environment variables
+./set_env_vars.sh
