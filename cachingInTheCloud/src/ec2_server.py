@@ -1,26 +1,39 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer # python3
 from datetime import datetime
 from furl import furl
+import jump
+import xxhash
+import elb
 
 host = ''
 port = 80
 instance_cache = dict()
 
 def get_live_nodes():
-#     TODO - implement
-    pass
+    return elb.get_targets_status()
 
-def hash_func():
-#     TODO - implement
-    pass
+def hash_func(str_key, node_count):
+    vnode_id = xxhash.xxh64(str_key).intdigest() % 1024
+    return jump.hash(vnode_id, node_count)
 
-def redirect_request(request_type, ip, request_args):
-#     TODO - implement
-    pass
-
-def create_http_request_template(request_type):
-    pass
+def put_request_handler(ip1, ip2, request_args):
+    request1 = f"http://{ip1}/write"
+    request2 = f"http://{ip2}/write"
+    response1 = request.post(request1, request_args)
+    response2 = request.post(request2, request_args)
     
+    return reponse1.status_code, response2.status_code
+
+def get_request_handler(ip1, ip2, request_args):
+    response1 = None
+    response2 = None
+    request1 = f"http://{ip1}/read"
+    request2 = f"http://{ip2}/read"
+    response1 = request.get(request1, request_args)
+    response2 = request.get(request2, request_args)
+    
+    return response1, response2
+
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
     return "succeeded"
@@ -50,12 +63,12 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = read_request_handler(f.args['str_key'])
             self.wfile.write("read request response: {}".format(response).encode('utf-8'))
             
-#         elif f.path == "/get":
-# #             send read request to 2 ec2 by getting ip from hash func
-#             live_nodes = get_live_nodes()
-#             node_ip = hash_func(f.args['str_key']) % len(live_nodes)
-#             response = redirect_request('read', node_ip, f.args)
-#             self.wfile.write("get request response: {} ".format(response).encode('utf-8'))
+        elif f.path == "/get":
+#             send read request to 2 ec2 by getting ip from hash func
+            live_nodes, sick = get_live_nodes()
+            node_id = hash_func(f.args['str_key'], len(live_nodes))
+            response = get_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args['str_key'])
+            self.wfile.write("get request response: {} ".format(response).encode('utf-8'))
     
         elif self.path == "/healthcheck":
             self.wfile.write("Ok".format().encode('utf-8'))
@@ -68,13 +81,11 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = write_request_handler(f.args['str_key'], f.args['data'], f.args['expiration_date'])
             self.wfile.write("write request response: {}".format(response).encode('utf-8'))
             
-#         elif f.path == "/put":
+        elif f.path == "/put":
 #             send write request to 2 ec2 by getting ip from hash func
-#             live_nodes = get_live_nodes()
-#             node_ip = hash_func(f.args['str_key']) % len(live_nodes)
-#             response = redirect_request('write', node_ip, f.args)
-#             while not response:
-#                 wait(10)
-#             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
+            live_nodes = get_live_nodes()
+            node_id = hash_func(f.args['str_key'], len(live_nodes))
+            response = put_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args)
+            self.wfile.write("put request response: {}".format(response).encode('utf-8'))
 HTTPServer((host, port), HandleRequests).serve_forever()
 
