@@ -15,10 +15,6 @@ runcmd:
 - cd cloud_computing_ex2/cachingInTheCloud/src
 - chmod 777 *.sh
 - ./ec2_init.sh 
-- echo {sys.argv[1]} > /home/ubuntu/credentials_info
-- echo {sys.argv[2]} >> /home/ubuntu/credentials_info
-- echo {sys.argv[3]} >> /home/ubuntu/credentials_info
-
 - sudo python3 elb.py
 - sudo python3 ec2_server.py
 """
@@ -190,7 +186,6 @@ def get_targets_status():
     return healthy, sick
 
 def create_ec2_instances(num_instances):
-    print(os.environ.get("AWS_ACCESS_KEY_ID"))
     instances = ec2.run_instances(
           ImageId = 'ami-09e67e426f25ce0d7',
           MinCount = int(num_instances), 
