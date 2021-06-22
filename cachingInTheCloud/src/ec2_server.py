@@ -10,9 +10,13 @@ host = ''
 port = 80
 instance_cache = dict()
 my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").content).decode()
+current_live_node_count = len(elb.get_live_nodes())
 
 def get_live_nodes():
     return elb.get_targets_status()
+
+def is_node_count_changed(node_count):
+    return current_live_node_count == node_count
 
 def hash_func(str_key, node_count):
     vnode_id = xxhash.xxh64(str_key).intdigest() % 1024
