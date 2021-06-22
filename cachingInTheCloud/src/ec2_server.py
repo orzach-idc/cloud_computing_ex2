@@ -30,8 +30,8 @@ def update_all_instances():
         else:
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(item[1][0], len(live_nodes))
-            ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
-            ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+            ip1 = elb.get_instance_public_ip(live_nodes[node_id]['Id'])
+            ip2 = elb.get_instance_public_ip(live_nodes[node_id + 1]['Id'])
             request_args = {
                 'str_key': item[0],
                 'data': item[1][0],
@@ -107,8 +107,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             send read request to 2 ec2 by getting ip from hash func
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
-            ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
-            ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+            ip1 = elb.get_instance_public_ip(live_nodes[node_id]['Id'])
+            ip2 = elb.get_instance_public_ip(live_nodes[node_id + 1]['Id'])
             response = get_request_handler(ip1 , ip2, f.args)
             
             self.wfile.write("get request response: {} ".format(response).encode('utf-8'))
@@ -128,8 +128,8 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             send write request to 2 ec2 by getting ip from hash func
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
-            ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
-            ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+            ip1 = elb.get_instance_public_ip(live_nodes[node_id]['Id'])
+            ip2 = elb.get_instance_public_ip(live_nodes[node_id + 1]['Id'])
             response = put_request_handler(ip1 , ip2, f.args)
             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
     
