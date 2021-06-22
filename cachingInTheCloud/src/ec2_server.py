@@ -25,7 +25,7 @@ def check_for_update(node_count):
             update_all_instances()
         time.sleep(30)
         if not flag:
-            requests.post("http://3.236.176.74/kill)
+            requests.post("http://3.236.176.74/kill")
 
 def update_all_instances():
     for item in instance_cache.items():
