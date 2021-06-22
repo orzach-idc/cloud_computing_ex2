@@ -20,7 +20,7 @@ def check_for_update(node_count):
     global flag
     flag = True
     while flag:
-        requests.post("http://3.236.176.74/check)
+        requests.post("http://3.236.176.74/check")
         if current_live_node_count != node_count:
             update_all_instances()
         time.sleep(30)
