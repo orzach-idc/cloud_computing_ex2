@@ -181,7 +181,7 @@ def get_targets_status():
 
 def get_instance_ip(instance_id):
     filters = [{
-        'Name': 'InstanceId',
+        'Name': "InstanceId",
         'Values': [instance_id],
     }]
     return ec2.describe_instances(Filters=filters)
