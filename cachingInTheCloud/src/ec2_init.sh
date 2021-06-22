@@ -18,3 +18,6 @@ sudo pip install xxhash
 
 # installing jump
 sudo pip install jump
+
+#installing os
+sudo pip install os
