@@ -22,7 +22,8 @@ def check_for_update():
     while flag:
 #         requests.post("http://3.236.176.74/check")
         print('check')
-        if current_live_node_count != get_live_nodes():
+        live_nodes, sick = get_live_nodes()
+        if current_live_node_count != live_nodes:
             update_all_instances()
         time.sleep(30)
         if not flag:
@@ -31,13 +32,14 @@ def check_for_update():
 
 def update_all_instances():
     for item in instance_cache.items():
-        print(f"update item= {item}")
 #         delete expired item from cache
         item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
         if item_expiration_date < datetime.now():
+            print('delete')
             instance_cache.pop(item[0])
 #         check if instance update required
         else:
+            print('update')
             live_nodes, sick = get_live_nodes()
             node_id1 = hash_func(item[0], len(live_nodes))
             node_id2 = (node_id1 + 1) % len(live_nodes)
