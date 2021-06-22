@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer # python3
 from datetime import datetime
 from furl import furl
-import pyjump
+import jump
 import xxhash
 import elb
 
