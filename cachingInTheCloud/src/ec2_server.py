@@ -10,6 +10,7 @@ import time
 
 
 global count
+count=0
 host = ''
 port = 80
 instance_cache = dict()
