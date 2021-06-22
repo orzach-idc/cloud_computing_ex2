@@ -20,6 +20,7 @@ def check_for_update(node_count):
     global flag
     flag = True
     while flag:
+        print('thread created')
         if current_live_node_count != node_count:
             update_all_instances()
         time.sleep(30)
