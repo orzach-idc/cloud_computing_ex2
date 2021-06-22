@@ -9,8 +9,8 @@ import threading
 import time
 
 
-global count
-count=0
+global current_live_node_count
+current_live_node_count = 0
 host = ''
 port = 80
 instance_cache = dict()
