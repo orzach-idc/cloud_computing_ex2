@@ -198,4 +198,4 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":
     ensure_elb_setup_created()
-    print(elb.describe_load_balancers()["LoadBalancers"][0])
+    print(elb.describe_load_balancers()["LoadBalancers"])
