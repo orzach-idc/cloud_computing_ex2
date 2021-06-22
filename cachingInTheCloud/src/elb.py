@@ -177,7 +177,7 @@ def get_targets_status():
             sick[target["Target"]["Id"]] = target["TargetHealth"]["Description"]
         else:
             healthy.append(target["Target"])
-    return test, sick
+    return healthy, sick
 
 def get_instance_public_dns_name(instance_id):
     filters = [{
