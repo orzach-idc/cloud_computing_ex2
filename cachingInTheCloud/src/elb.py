@@ -174,7 +174,7 @@ def get_targets_status():
     sick={}
     for target in health["TargetHealthDescriptions"]:
         if target["TargetHealth"]["State"] == "unhealthy":
-            sick[target["Target"]["Id"]] = target["TargetHealth"]["Description"]
+            sick[target["Target"]] = target["TargetHealth"]["Description"]
         else:
             healthy.append(target["Target"])
     return healthy, sick
