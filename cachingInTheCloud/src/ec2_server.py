@@ -31,6 +31,7 @@ def check_for_update(node_count):
 
 def update_all_instances():
     for item in instance_cache.items():
+        print(f"update item= {item}")
 #         delete expired item from cache
         item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
         if item_expiration_date < datetime.now():
