@@ -23,7 +23,8 @@ def check_for_update():
 #         requests.post("http://3.236.176.74/check")
         print('check')
         live_nodes, sick = get_live_nodes()
-        if current_live_node_count != live_nodes:
+        print(f"live={len(live_nodes)}, prev={current_live_node_count}")
+        if current_live_node_count != len(live_nodes):
             update_all_instances()
         time.sleep(30)
         if not flag:
