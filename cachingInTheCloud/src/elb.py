@@ -16,9 +16,9 @@ runcmd:
 - cd cloud_computing_ex2/cachingInTheCloud/src
 - chmod 777 *.sh
 - ./ec2_init.sh 
-- echo {os.environ.get("AWS_ACCESS_KEY_ID")} > /home/ubuntu/aws_access_key_id
-- echo {os.environ.get("AWS_SECRET_ACCESS_KEY_ID")} > /home/ubuntu/aws_secret_access_key_id
-- echo {os.environ.get("AWS_DEFAULT_REGION")} > /home/ubuntu/aws_default_region
+- export AWS_ACCESS_KEY_ID = {os.environ.get("AWS_ACCESS_KEY_ID")}
+- export AWS_SECRET_ACCESS_KEY_ID = {os.environ.get("AWS_SECRET_ACCESS_KEY_ID")}
+- export AWS_DEFAULT_REGION = {os.environ.get("AWS_DEFAULT_REGION")} 
 - sudo python3 elb.py
 - sudo python3 ec2_server.py
 """
