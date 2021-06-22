@@ -25,15 +25,15 @@ def put_request_handler(ip1, ip2, request_args):
     
     return reponse1.status_code, response2.status_code
 
-def get_request_handler(ip1, ip2, request_args):
+def get_request_handler(ip1, ip2, str_key_val):
     response1 = None
 #     response2 = None
-    request1 = f"http://{ip1}/read"
+    request1 = f"http://{ip1}/read?str_key={str_key_val}"
 #     request2 = f"http://{ip2}/read"
-#     response1 = requests.get(request1, request_args)
+    response1 = requests.get(request1)
 #     response2 = request.get(request2, request_args)
     
-    return request1
+    return response1
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
