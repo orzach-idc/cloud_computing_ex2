@@ -179,12 +179,12 @@ def get_targets_status():
             healthy.append(target["Target"])
     return healthy, sick
 
-def get_instance_public_dns_name(instance_id):
+def get_instance_public_ip(instance_id):
     filters = [{
         "Name": "instance-id",
         "Values": [instance_id],
     }]
-    return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicDnsName']
+    return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
@@ -198,4 +198,4 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":
     ensure_elb_setup_created()
-    print(elb.describe_load_balancers()["LoadBalancers"])
+    print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
