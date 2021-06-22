@@ -7,7 +7,7 @@ PREFIX="cache-elb"
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
-ec2_user_data = f"""#cloud-config
+ec2_user_data = """#cloud-config
 
 runcmd:
 - cd home/ubuntu
