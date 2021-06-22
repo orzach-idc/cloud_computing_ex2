@@ -184,7 +184,7 @@ def get_instance_public_ip(instance_id):
         "Name": "instance-id",
         "Values": [instance_id],
     }]
-    return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]
+    return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
