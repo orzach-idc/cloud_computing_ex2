@@ -155,5 +155,7 @@ if __name__ == "__main__":
         HTTPServer((host, port), HandleRequests).serve_forever()
 #     finally:
 #         flag = False
+    finally:
+        return
 
 
