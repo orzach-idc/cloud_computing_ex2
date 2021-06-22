@@ -67,7 +67,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 #             send read request to 2 ec2 by getting ip from hash func
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
-#             response = get_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args['str_key'])
+            response = get_request_handler(live_nodes[node_id], live_nodes[node_id], f.args['str_key'])
             
             self.wfile.write("get request response: {} ".format(node_id).encode('utf-8'))
     
