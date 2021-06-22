@@ -17,7 +17,7 @@ sudo pip install furl
 sudo pip install xxhash
 
 # installing jump
-sudo pip install jump
+sudo pip install jump-consistent-hash
 
 #installing os
 sudo pip install os
