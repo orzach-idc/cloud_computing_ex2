@@ -174,10 +174,10 @@ def get_targets_status():
     sick={}
     for target in health["TargetHealthDescriptions"]:
         if target["TargetHealth"]["State"] == "unhealthy":
-            sick[target["Target"]] = target["TargetHealth"]["Description"]
+            sick[target["Target"]["Id"]] = target["TargetHealth"]["Description"]
         else:
             healthy.append(target["Target"])
-    return healthy, sick
+    return health, sick
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
