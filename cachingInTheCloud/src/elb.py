@@ -176,7 +176,7 @@ def get_targets_status():
         if target["TargetHealth"]["State"] == "unhealthy":
             sick[target["Target"]["Id"]] = target["TargetHealth"]["Description"]
         else:
-            healthy.append(target["Target"]["Id"])
+            healthy.append(target["Target"])
     return healthy, sick
 
 def create_ec2_instances(num_instances):
