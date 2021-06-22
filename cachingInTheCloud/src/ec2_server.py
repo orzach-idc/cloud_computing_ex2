@@ -25,8 +25,8 @@ def check_for_update():
     while flag:
 #         requests.post("http://3.236.176.74/check")
         print('check')
-        live_nodes, sick = get_live_nodes()
-#         print(f"live={len(live_nodes)}, prev={current_live_node_count}")
+        live_nodes, sick = get_live_nodes(current_live_node_count)
+        print(f"live={len(live_nodes)}, prev={current_live_node_count}")
         if current_live_node_count != len(live_nodes):
             current_live_node_count = len(live_nodes)
             update_all_instances()
@@ -160,7 +160,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
 try:
     current_live_node_count = len(get_live_nodes())
-    update_thread = threading.Thread(target=check_for_update, args=[]) 
+    update_thread = threading.Thread(target=check_for_update, args=[current_live_node_count]) 
     update_thread.start()
     HTTPServer((host, port), HandleRequests).serve_forever()
 finally:
