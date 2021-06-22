@@ -59,7 +59,7 @@ def redirect_request(ip, request_args, request_path):
                response = response.text.split(': ')[1]
     else:
 #         response = write_request_handler(request_args['str_key'], request_args['data'], request_args['expiration_date'])
-            response = request_args
+            response = instance_cache['test'] = request_args
         
     return response
     
