@@ -31,7 +31,7 @@ def check_for_update():
         if current_live_node_count != len(live_nodes):
             current_live_node_count = len(live_nodes)
             update_all_instances()
-        time.sleep(30)
+        time.sleep(10)
         if not flag:
               print('killed')
 
