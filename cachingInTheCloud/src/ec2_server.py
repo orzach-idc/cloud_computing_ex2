@@ -16,24 +16,29 @@ def get_live_nodes():
     return elb.get_targets_status()
 
 def is_node_count_changed(node_count):
-    return current_live_node_count == node_count
+    if current_live_node_count != node_count:
+        update_all_instances()
+    return
 
 def update_all_instances():
     for item in instance_cache.items():
-          print(item)
 #         delete expired item from cache
-#         item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
-#         if item_expiration_date < datetime.now():
-#             instance_cache.pop(item[0])
-# #         check for instance update for item
-#         else:
-#             live_nodes, sick = get_live_nodes()
-#             node_id = hash_func(item[1][0], len(live_nodes))
-#             ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
-#             ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
-#             if ip1 != my_ip:
-#                 request_args = {'str_key':item[0], item[1]
-#                 request1 = redirect_request(ip1,  
+        item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
+        if item_expiration_date < datetime.now():
+            instance_cache.pop(item[0])
+#         check if instance update required
+        else:
+            live_nodes, sick = get_live_nodes()
+            node_id = hash_func(item[1][0], len(live_nodes))
+            ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
+            ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+            request_args = {
+                'str_key': item[0],
+                'data': item[1][0],
+                'expiration_date': item[1][1]
+            }
+            redirect_request(ip1, request_args, 'write') 
+            redirect_request(ip2, request_args, 'write') 
             
 
 def hash_func(str_key, node_count):
@@ -121,10 +126,12 @@ class HandleRequests(BaseHTTPRequestHandler):
             
         elif f.path == "/put":
 #             send write request to 2 ec2 by getting ip from hash func
-            live_nodes = get_live_nodes()
+            live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
-#             response = put_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args)
-            self.wfile.write("put request response: {}".format(node_id).encode('utf-8'))
+            ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
+            ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+            response = put_request_handler(ip1 , ip2, f.args)
+            self.wfile.write("put request response: {}".format(response).encode('utf-8'))
     
 HTTPServer((host, port), HandleRequests).serve_forever()
 
