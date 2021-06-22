@@ -151,7 +151,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     try:
         current_live_node_count = len(get_live_nodes())
-        update_thread = threading.Thread(target=check_for_update) 
+        update_thread = threading.Thread(target=check_for_update, args=[current_live_node_count]) 
         HTTPServer((host, port), HandleRequests).serve_forever()
 #     finally:
 #         flag = False
