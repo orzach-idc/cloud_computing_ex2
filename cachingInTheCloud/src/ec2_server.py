@@ -7,6 +7,7 @@ import elb
 import requests
 import threading
 import time
+current_live_nodes_count = 0
 
 host = ''
 port = 80
