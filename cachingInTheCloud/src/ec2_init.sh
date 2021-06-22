@@ -17,4 +17,4 @@ sudo pip install furl
 sudo pip install xxhash
 
 # installing jump
-sudo pip install pyjump
+sudo pip install jump
