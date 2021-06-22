@@ -10,7 +10,6 @@ host = ''
 port = 80
 instance_cache = dict()
 my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").content).decode()
-current_live_node_count = len(get_live_nodes())
 
 def get_live_nodes():
     return elb.get_targets_status()
@@ -132,6 +131,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             ip2 = elb.get_instance_public_ip(live_nodes[node_id + 1]['Id'])
             response = put_request_handler(ip1 , ip2, f.args)
             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
-    
+            
+current_live_node_count = len(get_live_nodes())
 HTTPServer((host, port), HandleRequests).serve_forever()
 
