@@ -24,8 +24,6 @@ def check_for_update():
     global flag
     flag = True
     while flag:
-        print(count)
-#         requests.post("http://3.236.176.74/check")
         print('check')
         live_nodes, sick = get_live_nodes()
         print(f"live={len(live_nodes)}, prev={current_live_node_count}")
@@ -34,7 +32,6 @@ def check_for_update():
             update_all_instances()
         time.sleep(30)
         if not flag:
-#             requests.post("http://3.236.176.74/kill")
               print('killed')
 
 def update_all_instances():
