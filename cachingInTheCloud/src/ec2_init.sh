@@ -12,3 +12,9 @@ sudo pip3 install aws-sam-cli
 
 #installing furl
 sudo pip install furl 
+
+# installing xxhash
+sudo pip install xxhash
+
+# installing jump
+sudo pip install pyjump
