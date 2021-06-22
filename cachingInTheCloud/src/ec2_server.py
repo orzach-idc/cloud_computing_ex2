@@ -51,6 +51,7 @@ def redirect_request(ip, request_args, request_path):
         request = f"http://{ip}/{request_path}"
         if request_path == 'write':
             response = requests.post(request, params = request_args)
+#             response = requests.post(request)
             if response != None:
                response = response.text 
         else:
@@ -58,8 +59,7 @@ def redirect_request(ip, request_args, request_path):
             if response != None:
                response = response.text.split(': ')[1]
     else:
-#         response = write_request_handler(request_args['str_key'], request_args['data'], request_args['expiration_date'])
-            instance_cache['test'] = request_args
+        response = write_request_handler(request_args['str_key'], request_args['data'], request_args['expiration_date'])
         
     return response
     
@@ -101,8 +101,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         f = furl(self.path)
         
         if f.path == "/read":
-            response = read_request_handler(f.args['str_key'])
-            self.wfile.write("read request response: {}".format(response).encode('utf-8'))
+#             response = read_request_handler(f.args['str_key'])
+            self.wfile.write("read request response: {}".format(f.args['str_key']).encode('utf-8'))
             
         elif f.path == "/get":
 #             send read request to 2 ec2 by getting ip from hash func
