@@ -1,6 +1,7 @@
 import boto3
 import sys
 from botocore import exceptions
+import os
 
 PREFIX="cache-elb"
 
