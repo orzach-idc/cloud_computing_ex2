@@ -18,43 +18,56 @@ def get_live_nodes():
 def is_node_count_changed(node_count):
     return current_live_node_count == node_count
 
+def update_all_instances():
+    for item in instance_cache.items():
+          print(item)
+#         delete expired item from cache
+#         item_expiration_date = datetime.strptime(item[1][1], '%d-%m-%Y')
+#         if item_expiration_date < datetime.now():
+#             instance_cache.pop(item[0])
+# #         check for instance update for item
+#         else:
+#             live_nodes, sick = get_live_nodes()
+#             node_id = hash_func(item[1][0], len(live_nodes))
+#             ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
+#             ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+#             if ip1 != my_ip:
+#                 request_args = {'str_key':item[0], item[1]
+#                 request1 = redirect_request(ip1,  
+            
+
 def hash_func(str_key, node_count):
     vnode_id = xxhash.xxh64(str_key).intdigest() % 1024
     return jump.hash(vnode_id, node_count)
 
+def redirect_request(ip, request_args, request_path):
+    response = None
+    if ip != my_ip:
+        request1 = f"http://{ip}/{request_path}"
+        if request_path == 'write':
+            response = requests.post(request, params = request_args)
+            if response != None:
+               response = response.text 
+        else:
+            response = requests.get(request, params = request_args)
+            if response != None:
+               response = response.text.split(': ')[1]
+    else:
+        response = write_request_handler(request_args['str_key'])
+        
+    return response
+    
 def put_request_handler(ip1, ip2, request_args):
-    response1 = None
-    response2 = None
-    if ip1 != my_ip:
-        request1 = f"http://{ip1}/write"
-        response1 = requests.post(request1, params = request_args)
-    else:
-        response1 = write_request_handler(request_args['str_key'])
-    
-    if ip2 != my_ip:
-        request2 = f"http://{ip2}/write"
-        response2 = requests.post(request2, params = request_args)
-    else:
-        response2 = write_request_handler(request_args['str_key'])
-    
-    return if response1 != None response1.text else response2.text
+    response1 = redirect_request(ip1, request_args, 'write')
+    response2 = redirect_request(ip2, request_args, 'write')
+  
+    return if response1 != None response1 else response2
 
 def get_request_handler(ip1, ip2, request_args):
-    response1 = None
-    response2 = None
-    if ip1 != my_ip:
-        request1 = f"http://{ip1}/read"
-        response1 = requests.get(request1, params = request_args)
-    else:
-        read_request_handler(request_args['str_key'])
-    
-    if ip2 != my_ip:
-        request2 = f"http://{ip2}/read"
-        response2 = requests.get(request2, params = request_args)
-    else:
-        read_request_handler(request_args['str_key'])
-        
-    return if response1 != None response1.text.split(': ')[1] else response2.text.split(': ')[1] 
+    response1 = redirect_request(ip1, request_args, 'read')
+    response2 = redirect_request(ip2, request_args, 'read')
+  
+    return if response1 != None response1 else response2
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
@@ -90,7 +103,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
             ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
-            response = get_request_handler(ip1 , ip1, f.args)
+            ip2 = elb.get_instance_public_dns_name(live_nodes[node_id + 1]['Id'])
+            response = get_request_handler(ip1 , ip2, f.args)
             
             self.wfile.write("get request response: {} ".format(response).encode('utf-8'))
     
@@ -111,5 +125,6 @@ class HandleRequests(BaseHTTPRequestHandler):
             node_id = hash_func(f.args['str_key'], len(live_nodes))
 #             response = put_request_handler(live_nodes[node_id], live_nodes[node_id + 1], f.args)
             self.wfile.write("put request response: {}".format(node_id).encode('utf-8'))
+    
 HTTPServer((host, port), HandleRequests).serve_forever()
 
