@@ -25,6 +25,7 @@ def check_for_update():
         live_nodes, sick = get_live_nodes()
         print(f"live={len(live_nodes)}, prev={current_live_node_count}")
         if current_live_node_count != len(live_nodes):
+            current_live_node_count = len(live_nodes)
             update_all_instances()
         time.sleep(30)
         if not flag:
