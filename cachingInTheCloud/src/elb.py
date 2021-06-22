@@ -11,12 +11,6 @@ ec2_user_data = f"""#cloud-config
 
 runcmd:
 - cd home/ubuntu
-- git clone https://github.com/orzach-idc/cloud_computing_ex2.git
-- cd cloud_computing_ex2/cachingInTheCloud/src
-- chmod 777 *.sh
-- ./ec2_init.sh 
-- sudo python3 elb.py
-- sudo python3 ec2_server.py
 """
 
 def init_security_groups(vpc_id):
