@@ -25,12 +25,12 @@ def put_request_handler(ip1, ip2, request_args):
     
     return reponse1.status_code, response2.status_code
 
-def get_request_handler(ip1, ip2, str_key_val):
+def get_request_handler(ip1, ip2, request_args):
     response1 = None
 #     response2 = None
-    request1 = f"http://{ip1}/read?str_key={str_key_val}"
+    request1 = f"http://{ip1}/read"
 #     request2 = f"http://{ip2}/read"
-    response1 = requests.get(request1)
+    response1 = requests.get(request1, request_args)
 #     response2 = request.get(request2, request_args)
     
     return response1
@@ -69,7 +69,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             live_nodes, sick = get_live_nodes()
             node_id = hash_func(f.args['str_key'], len(live_nodes))
             ip1 = elb.get_instance_public_dns_name(live_nodes[node_id]['Id'])
-            response = get_request_handler(ip1 , ip1, f.args['str_key'])
+            response = get_request_handler(ip1 , ip1, f.args)
             
             self.wfile.write("get request response: {} ".format(response).encode('utf-8'))
     
