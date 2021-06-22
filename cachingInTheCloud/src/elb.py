@@ -184,7 +184,7 @@ def get_instance_ip(instance_id):
 #         "Name": "InstanceId",
 #         "Values": [instance_id],
 #     }]
-    return ec2.describe_instances()['Instances']
+    return ec2.describe_instances()[0]
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
