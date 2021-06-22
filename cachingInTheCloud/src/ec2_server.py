@@ -103,6 +103,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         self._set_headers()
         f = furl(self.path)
         
+        if f.path == "/update":
+            update_all_instances()
         if f.path == "/read":
             response = read_request_handler(f.args['str_key'])
             self.wfile.write("read request response: {}".format(response).encode('utf-8'))
