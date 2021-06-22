@@ -5,6 +5,8 @@ import jump
 import xxhash
 import elb
 import requests
+import threading
+import time
 
 host = ''
 port = 80
@@ -14,10 +16,13 @@ my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").con
 def get_live_nodes():
     return elb.get_targets_status()
 
-def is_node_count_changed(node_count):
-    if current_live_node_count != node_count:
-        update_all_instances()
-    return
+def check_for_update(node_count):
+    global flag
+    flag = True
+    while flag:
+        if current_live_node_count != node_count:
+            update_all_instances()
+        time.sleep(30)
 
 def update_all_instances():
     for item in instance_cache.items():
@@ -140,7 +145,12 @@ class HandleRequests(BaseHTTPRequestHandler):
             ip2 = elb.get_instance_public_ip(live_nodes[node_id2]['Id'])
             response = put_request_handler(ip1 , ip2, f.args)
             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
-            
-current_live_node_count = len(get_live_nodes())
-HTTPServer((host, port), HandleRequests).serve_forever()
+if __name__ == "__main__":
+    try:
+        current_live_node_count = len(get_live_nodes())
+        update_thread = threading.Thread(target=check_for_update) 
+        HTTPServer((host, port), HandleRequests).serve_forever()
+    finally:
+        flag = False
+
 
