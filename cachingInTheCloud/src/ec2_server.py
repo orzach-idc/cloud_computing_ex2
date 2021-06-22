@@ -153,7 +153,7 @@ if __name__ == "__main__":
         current_live_node_count = len(get_live_nodes())
         update_thread = threading.Thread(target=check_for_update) 
         HTTPServer((host, port), HandleRequests).serve_forever()
-    finally:
-        flag = False
+#     finally:
+#         flag = False
 
 
