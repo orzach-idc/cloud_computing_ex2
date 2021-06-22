@@ -13,6 +13,7 @@ import time
 host = ''
 port = 80
 instance_cache = dict()
+global current_live_nodes_count
 current_live_nodes_count = 0
 my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").content).decode()
 
