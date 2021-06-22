@@ -7,11 +7,13 @@ import elb
 import requests
 import threading
 import time
-current_live_nodes_count = 0
+
+
 
 host = ''
 port = 80
 instance_cache = dict()
+current_live_nodes_count = 0
 my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").content).decode()
 
 def get_live_nodes():
