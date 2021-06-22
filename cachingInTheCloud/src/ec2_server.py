@@ -28,7 +28,7 @@ def update_all_instances():
 #         check if instance update required
         else:
             live_nodes, sick = get_live_nodes()
-            node_id1 = hash_func(f.args['str_key'], len(live_nodes))
+            node_id1 = hash_func(item[0], len(live_nodes))
             node_id2 = (node_id1 + 1) % len(live_nodes)
             ip1 = elb.get_instance_public_ip(live_nodes[node_id1]['Id'])
             ip2 = elb.get_instance_public_ip(live_nodes[node_id2]['Id'])
