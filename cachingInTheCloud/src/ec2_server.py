@@ -66,13 +66,13 @@ def put_request_handler(ip1, ip2, request_args):
     response1 = redirect_request(ip1, request_args, 'write')
     response2 = redirect_request(ip2, request_args, 'write')
   
-    return if response1 != None response1 else response2
+    return response1 if response1 != None else response2
 
 def get_request_handler(ip1, ip2, request_args):
     response1 = redirect_request(ip1, request_args, 'read')
     response2 = redirect_request(ip2, request_args, 'read')
   
-    return if response1 != None response1 else response2
+    return response1 if response1 != None else response2
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
