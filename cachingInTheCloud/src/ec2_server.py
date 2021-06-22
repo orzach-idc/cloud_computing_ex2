@@ -21,6 +21,7 @@ def get_live_nodes():
     return elb.get_targets_status()
 
 def check_for_update():
+    global current_live_node_count
     global flag
     flag = True
     while flag:
