@@ -33,7 +33,7 @@ def get_request_handler(ip1, ip2, request_args):
     response1 = requests.get(request1, params = request_args)
 #     response2 = request.get(request2, request_args)
     
-    return response1.json()
+    return response1
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
