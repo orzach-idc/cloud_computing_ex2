@@ -150,11 +150,13 @@ class HandleRequests(BaseHTTPRequestHandler):
             ip2 = elb.get_instance_public_ip(live_nodes[node_id2]['Id'])
             response = put_request_handler(ip1 , ip2, f.args)
             self.wfile.write("put request response: {}".format(response).encode('utf-8'))
-if __name__ == "__main_":
+try:
     current_live_node_count = len(get_live_nodes())
     update_thread = threading.Thread(target=check_for_update, args=[current_live_node_count]) 
     update_thread.start()
     HTTPServer((host, port), HandleRequests).serve_forever()
+finally:
+    exit()
 
 
 
