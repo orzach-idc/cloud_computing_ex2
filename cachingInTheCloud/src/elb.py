@@ -201,4 +201,8 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":
     ensure_elb_setup_created()
-    print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
+    os.environ["AWS_ACCESS_KEY_ID"] = argv[1]
+    os.environ["AWS_SECRET_ACCESS_KEY_ID"] = argv[2]
+    os.environ["AWS_DEFAULT_REGION"] = argv[3]
+
+
