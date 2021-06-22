@@ -17,10 +17,11 @@ def get_live_nodes():
     return elb.get_targets_status()
 
 def check_for_update(node_count):
+    print('thread created')
     global flag
     flag = True
     while flag:
-        print('thread created')
+        print('update check')
         if current_live_node_count != node_count:
             update_all_instances()
         time.sleep(30)
