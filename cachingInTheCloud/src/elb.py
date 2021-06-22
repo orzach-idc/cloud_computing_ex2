@@ -182,9 +182,9 @@ def get_targets_status():
 def get_instance_ip(instance_id):
     filters = [{
         'Name': 'InstanceId',
-        'Values': [instance_id]
+        'Values': [instance_id],
     }]
-    return ec2.describe_instances(Filters=filters)['PublicDnsName']
+    return ec2.describe_instances(Filters=filters)
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
