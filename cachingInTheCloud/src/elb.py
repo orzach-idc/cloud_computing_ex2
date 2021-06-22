@@ -180,11 +180,11 @@ def get_targets_status():
     return test, sick
 
 def get_instance_ip(instance_id):
-    filters = [{
-        'Name': "InstanceId",
-        'Values': [instance_id],
-    }]
-    return ec2.describe_instances(Filters=filters)
+#     filters = [{
+#         "Name": "InstanceId",
+#         "Values": [instance_id],
+#     }]
+    return ec2.describe_instances()
 
 def create_ec2_instances(num_instances):
     instances = ec2.run_instances(
