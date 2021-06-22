@@ -190,6 +190,7 @@ def get_targets_status():
     return healthy, sick
 
 def create_ec2_instances(num_instances):
+    print(os.environ.get("AWS_ACCESS_KEY_ID"))
     instances = ec2.run_instances(
           ImageId = 'ami-09e67e426f25ce0d7',
           MinCount = int(num_instances), 
