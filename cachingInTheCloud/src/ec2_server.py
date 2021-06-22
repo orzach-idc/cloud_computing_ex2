@@ -4,6 +4,7 @@ from furl import furl
 import jump
 import xxhash
 import elb
+import requests
 
 host = ''
 port = 80
@@ -29,7 +30,7 @@ def get_request_handler(ip1, ip2, request_args):
 #     response2 = None
     request1 = f"http://{ip1}/read"
 #     request2 = f"http://{ip2}/read"
-    response1 = request.get(request1, request_args)
+    response1 = requests.get(request1, request_args)
 #     response2 = request.get(request2, request_args)
     
     return response1
