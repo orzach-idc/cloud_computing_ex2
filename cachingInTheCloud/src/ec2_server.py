@@ -19,7 +19,7 @@ my_ip = (requests.get("http://169.254.169.254/latest/meta-data/public-ipv4").con
 def get_live_nodes():
     return elb.get_targets_status()
 
-def check_for_update(current_live_node_count):
+def check_for_update():
     global flag
     flag = True
     while flag:
