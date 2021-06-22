@@ -107,7 +107,6 @@ def ensure_elb_setup_created():
             IpAddressType='ipv4',
             Subnets=subnets,
         )
-    print(response["LoadBalancers"][0])
     elb_arn = response["LoadBalancers"][0]["LoadBalancerArn"]
     vpc_id = response["LoadBalancers"][0]["VpcId"]
     results = init_security_groups(vpc_id)
@@ -202,3 +201,4 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":
     ensure_elb_setup_created()
+    print(elb.describe_load_balancers()[0]['LoadBalancerDescriptions']['DNSName'])
