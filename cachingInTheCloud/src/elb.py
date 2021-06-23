@@ -11,10 +11,21 @@ aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
 aws_secret_aceess_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 aws_default_region = os.environ.get('AWS_DEFAULT_REGION')
 
-ec2_user_data = """#cloud-config
+ec2_user_data = f"""#cloud-config
 
 runcmd:
 - cd home/ubuntu
+- git clone https://github.com/orzach-idc/cloud_computing_ex2.git
+- cd cloud_computing_ex2/cachingInTheCloud/src
+- chmod 777 *.sh
+- ./ec2_init.sh
+- sudo aws configure set aws_access_key_id {aws_access_key_id}
+- sudo aws configure set aws_secret_access_key {aws_secret_aceess_key} 
+- sudo aws configure set aws_default_region {aws_default_region}
+- sudo python3 elb.py
+- sudo python3 ec2_server.py
+
+
 """
 
 def init_security_groups(vpc_id):
