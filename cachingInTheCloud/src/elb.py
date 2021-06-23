@@ -200,5 +200,6 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":
     print(aws_access_key_id)
+    print(f"*** {ec2.get_credentials()}")
 #     ensure_elb_setup_created()
 #     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
