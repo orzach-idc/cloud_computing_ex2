@@ -7,6 +7,8 @@ PREFIX="cache-elb"
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
+aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
+print(aws_access_key_id)
 ec2_user_data = """#cloud-config
 
 runcmd:
@@ -197,5 +199,5 @@ def create_ec2_instances(num_instances):
 
 
 if __name__=="__main__":
-    ensure_elb_setup_created()
-    print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
+#     ensure_elb_setup_created()
+#     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
