@@ -208,7 +208,7 @@ def create_ec2_user_data(aws_access_key_id=None, aws_secret_aceess_key=None, aws
     - sudo python3 elb.py
     - sudo python3 ec2_server.py
     """
-    print(ex2_user_data)
+    print(ec2_user_data)
     
 def create_ec2_instances(num_instances):
     global ec2_user_data
