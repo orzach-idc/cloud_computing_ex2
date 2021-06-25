@@ -186,6 +186,9 @@ def get_instance_public_ip(instance_id):
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
 def create_ec2_instances(num_instances):
+    global aws_access_key_id
+    global aws_secret_aceess_key
+    global aws_default_region
     ec2_user_data = f"""#cloud-config
 
     runcmd:
