@@ -223,8 +223,8 @@ def create_ec2_instances(num_instances):
 
 
 if __name__=="__main__":  
-    if len(sys.argv) == 4:
-        create_ec2_user_data(sys.argv[1], sys.argv[2], sys.argv[3])
+    if len(sys.argv[1] == 'elb_init'):
+        create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])
 
 #     ensure_elb_setup_created()
 #     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
