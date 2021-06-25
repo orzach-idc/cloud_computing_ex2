@@ -223,7 +223,7 @@ def create_ec2_instances(num_instances):
 
 
 if __name__=="__main__":  
-    if len(sys.argv[1] == 'elb_init'):
+    if sys.argv[1] == 'elb_init':
         ans = create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])
         if not ans:
             exit()
