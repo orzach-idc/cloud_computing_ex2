@@ -8,9 +8,6 @@ PREFIX="cache-elb"
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
 
-global ec2_user_data
-ec2_user_data = ""
-
 
 def init_security_groups(vpc_id):
     try:
@@ -202,10 +199,8 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_r
     - sudo python3 elb.py
     - sudo python3 ec2_server.py
     """
-    print(ec2_user_data)
     
-def create_ec2_instances(num_instances):
-    global ec2_user_data
+def create_ec2_instances(num_instances, ec2_user_data):
     print(ec2_user_data)
 
     instances = ec2.run_instances(
