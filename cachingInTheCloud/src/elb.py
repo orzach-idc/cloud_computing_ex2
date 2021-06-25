@@ -218,16 +218,5 @@ def create_ec2_instances(num_instances):
 
 
 if __name__=="__main__":  
-    if sys.argv[1] == 'elb_init':
-        if len(sys.argv) == 5:
-            ans = create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])
-        else: 
-            print("""problem with aws credentials please run the following commands:
-            - sudo aws configure
-            - ./init2.py
-            """)
-            
-            exit()
-
     ensure_elb_setup_created()
     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
