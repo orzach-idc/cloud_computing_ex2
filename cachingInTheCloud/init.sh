@@ -11,4 +11,4 @@ sudo pip3 install --upgrade awscli
 sudo pip3 install aws-sam-cli
 
 # Configure AWS setup
-aws configure
+sudo aws configure
