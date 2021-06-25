@@ -4,11 +4,11 @@ import elb
 import os
 
 if __name__=="__main__":
-    if len(sys.argv) != 5:
+    if len(sys.argv) < 4:
         print("""problem with aws credentials please run the following commands:
         - sudo aws configure
         - ./init2.sh
-        - sudo python3 create_ec2.py $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
+        - sudo python3 create_ec2.py <num of instances> $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
         """)
 
         exit()
