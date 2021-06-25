@@ -4,7 +4,17 @@ import elb
 import os
 
 if __name__=="__main__":
-    instances = elb.create_ec2_instances(sys.argv[1])
+    if len(sys.argv) != 5:
+        print("""problem with aws credentials please run the following commands:
+        - sudo aws configure
+        - ./init2.sh
+        - sudo python3 create_ec2.py $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
+        """)
+
+        exit()
+        
+    ec2_user_data = elb.create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])    
+    instances = elb.create_ec2_instances(sys.argv[1], ec2_user_data)
                                               
     for i in range(len(instances["Instances"])):
         instance_id = instances["Instances"][i]["InstanceId"]
