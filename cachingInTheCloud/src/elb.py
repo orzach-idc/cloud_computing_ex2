@@ -190,7 +190,7 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_r
         print("""problem with aws credentials please run the following commands:
         - sudo aws configure
         - ./init2.py
-        """
+        """)
     global ec2_user_data
     ec2_user_data = f"""#cloud-config
 
