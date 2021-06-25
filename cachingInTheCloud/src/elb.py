@@ -222,10 +222,11 @@ if __name__=="__main__":
             ans = create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])
         else: 
             print("""problem with aws credentials please run the following commands:
-                  - sudo aws configure
-                  - ./init2.py
-                  """)
+            - sudo aws configure
+            - ./init2.py
+            """)
+            
             exit()
 
-#     ensure_elb_setup_created()
-#     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
+    ensure_elb_setup_created()
+    print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
