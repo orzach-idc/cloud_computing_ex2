@@ -4,12 +4,12 @@ from botocore import exceptions
 import os
 
 PREFIX="cache-elb"
-global aws_access_key_id
-global aws_secret_aceess_key
-global aws_default_region
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
+
+global ec2_user_data
+ec2_user_data = ""
 
 
 def init_security_groups(vpc_id):
@@ -185,10 +185,8 @@ def get_instance_public_ip(instance_id):
     }]
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
-def create_ec2_instances(num_instances):
-    global aws_access_key_id
-    global aws_secret_aceess_key
-    global aws_default_region
+def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_region):
+    global ec2_user_data
     ec2_user_data = f"""#cloud-config
 
     runcmd:
@@ -202,8 +200,10 @@ def create_ec2_instances(num_instances):
     - sudo aws configure set aws_default_region {aws_default_region}
     - sudo python3 elb.py
     - sudo python3 ec2_server.py
-
     """
+    
+def create_ec2_instances(num_instances):
+    global ec2_user_data
     print(ec2_user_data)
     
 #     instances = ec2.run_instances(
@@ -217,8 +217,7 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":  
     if len(sys.argv) == 4:
-        aws_access_key_id = sys.argv[1]
-        aws_secret_aceess_key = sys.argv[2]
-        aws_default_region = sys.argv[3]
+        create_ec2_user_data(sys.argv[1], sys.argv[2], sys.argv[3])
+
 #     ensure_elb_setup_created()
 #     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
