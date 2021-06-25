@@ -4,6 +4,9 @@ from botocore import exceptions
 import os
 
 PREFIX="cache-elb"
+global aws_access_key_id
+global aws_secret_aceess_key
+global aws_default_region
 
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
