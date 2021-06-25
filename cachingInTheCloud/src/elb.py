@@ -213,7 +213,7 @@ def create_ec2_instances(num_instances):
 
 
 if __name__=="__main__":  
-    if len(argv) == 4:
+    if len(sys.argv) == 4:
         aws_access_key_id = sys.argv[1]
         aws_secret_aceess_key = sys.argv[2]
         aws_default_region = sys.argv[3]
