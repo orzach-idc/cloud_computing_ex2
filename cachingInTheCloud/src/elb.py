@@ -208,13 +208,13 @@ def create_ec2_instances(num_instances):
     global ec2_user_data
     print(ec2_user_data)
 
-#     instances = ec2.run_instances(
-#           ImageId = 'ami-09e67e426f25ce0d7',
-#           MinCount = int(num_instances), 
-#           MaxCount = int(num_instances), 
-#           InstanceType = "t2.micro",
-#           UserData = ec2_user_data)
-#     return instances
+    instances = ec2.run_instances(
+          ImageId = 'ami-09e67e426f25ce0d7',
+          MinCount = int(num_instances), 
+          MaxCount = int(num_instances), 
+          InstanceType = "t2.micro",
+          UserData = ec2_user_data)
+    return instances
 
 
 if __name__=="__main__":  
