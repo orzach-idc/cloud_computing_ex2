@@ -5,6 +5,7 @@ import os
 
 if __name__=="__main__":
     if len(sys.argv) < 4:
+        print(len(sys.argv))
         print("""problem with aws credentials please run the following commands:
         - sudo aws configure
         - ./init2.sh
