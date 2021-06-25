@@ -8,26 +8,6 @@ PREFIX="cache-elb"
 elb = boto3.client('elbv2')
 ec2 = boto3.client('ec2')
 
-aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
-aws_secret_aceess_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
-aws_default_region = os.environ.get('AWS_DEFAULT_REGION')
-
-ec2_user_data = f"""#cloud-config
-
-runcmd:
-- cd home/ubuntu
-- git clone https://github.com/orzach-idc/cloud_computing_ex2.git
-- cd cloud_computing_ex2/cachingInTheCloud/src
-- chmod 777 *.sh
-- ./ec2_init.sh
-- sudo aws configure set aws_access_key_id {aws_access_key_id}
-- sudo aws configure set aws_secret_access_key {aws_secret_aceess_key} 
-- sudo aws configure set aws_default_region {aws_default_region}
-- sudo python3 elb.py
-- sudo python3 ec2_server.py
-
-
-"""
 
 def init_security_groups(vpc_id):
     try:
@@ -203,16 +183,36 @@ def get_instance_public_ip(instance_id):
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
 def create_ec2_instances(num_instances):
-    instances = ec2.run_instances(
-          ImageId = 'ami-09e67e426f25ce0d7',
-          MinCount = int(num_instances), 
-          MaxCount = int(num_instances), 
-          InstanceType = "t2.micro",
-          UserData = ec2_user_data)
-    return instances
+    ec2_user_data = f"""#cloud-config
 
+    runcmd:
+    - cd home/ubuntu
+    - git clone https://github.com/orzach-idc/cloud_computing_ex2.git
+    - cd cloud_computing_ex2/cachingInTheCloud/src
+    - chmod 777 *.sh
+    - ./ec2_init.sh
+    - sudo aws configure set aws_access_key_id {aws_access_key_id}
+    - sudo aws configure set aws_secret_access_key {aws_secret_aceess_key} 
+    - sudo aws configure set aws_default_region {aws_default_region}
+    - sudo python3 elb.py
+    - sudo python3 ec2_server.py
 
-if __name__=="__main__":    
+    """
     print(ec2_user_data)
+    
+#     instances = ec2.run_instances(
+#           ImageId = 'ami-09e67e426f25ce0d7',
+#           MinCount = int(num_instances), 
+#           MaxCount = int(num_instances), 
+#           InstanceType = "t2.micro",
+#           UserData = ec2_user_data)
+#     return instances
+
+
+if __name__=="__main__":  
+    if len(argv) == 4:
+        aws_access_key_id = sys.argv[1]
+        aws_secret_aceess_key = sys.argv[2]
+        aws_default_region = sys.argv[3]
 #     ensure_elb_setup_created()
 #     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
