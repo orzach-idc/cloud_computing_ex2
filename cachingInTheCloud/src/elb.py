@@ -186,6 +186,11 @@ def get_instance_public_ip(instance_id):
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
 def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_region):
+    if not aws_access_key_id or not aws_secret_aceess_key or not aws_default_region:
+        print("""problem with aws credentials please run the following commands:
+        - sudo aws configure
+        - ./init2.py
+        """
     global ec2_user_data
     ec2_user_data = f"""#cloud-config
 
@@ -204,21 +209,19 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_r
     
 def create_ec2_instances(num_instances):
     global ec2_user_data
-    print(ec2_user_data)
-    
-#     instances = ec2.run_instances(
-#           ImageId = 'ami-09e67e426f25ce0d7',
-#           MinCount = int(num_instances), 
-#           MaxCount = int(num_instances), 
-#           InstanceType = "t2.micro",
-#           UserData = ec2_user_data)
-#     return instances
+
+    instances = ec2.run_instances(
+          ImageId = 'ami-09e67e426f25ce0d7',
+          MinCount = int(num_instances), 
+          MaxCount = int(num_instances), 
+          InstanceType = "t2.micro",
+          UserData = ec2_user_data)
+    return instances
 
 
 if __name__=="__main__":  
     if len(sys.argv) == 4:
         create_ec2_user_data(sys.argv[1], sys.argv[2], sys.argv[3])
-        create_ec2_instances(1)
 
 #     ensure_elb_setup_created()
 #     print(elb.describe_load_balancers()["LoadBalancers"][0]['DNSName'])
