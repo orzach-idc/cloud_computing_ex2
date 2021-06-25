@@ -185,13 +185,7 @@ def get_instance_public_ip(instance_id):
     }]
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
-def create_ec2_user_data(aws_access_key_id=None, aws_secret_aceess_key=None, aws_default_region=None):
-    if not aws_access_key_id or not aws_secret_aceess_key or not aws_default_region:
-        print("""problem with aws credentials please run the following commands:
-        - sudo aws configure
-        - ./init2.py
-        """)
-        return
+def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_region):
     
     global ec2_user_data
     ec2_user_data = f"""#cloud-config
@@ -224,8 +218,13 @@ def create_ec2_instances(num_instances):
 
 if __name__=="__main__":  
     if sys.argv[1] == 'elb_init':
-        ans = create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])
-        if not ans:
+        if len(sys.argv) == 5:
+            ans = create_ec2_user_data(sys.argv[2], sys.argv[3], sys.argv[4])
+        else: 
+            print("""problem with aws credentials please run the following commands:
+                  - sudo aws configure
+                  - ./init2.py
+                  """)
             exit()
 
 #     ensure_elb_setup_created()
