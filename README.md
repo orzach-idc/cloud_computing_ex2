@@ -17,6 +17,10 @@
 
 **Step 7** - wait until all your instances are healthy (you have two ways to check it):
 
-    *  - aaa
-    *  - bbb
-  
+   *  go to the "cache-elb-tg" target group in your AWS console and check the healthy status under the "Targets" tab
+   *  use the "get_targets_status" function from the "elb.py" API
+
+**Step 8** - start using the app by sending the following http requests:
+
+   *  POST request - <ELB public DNS name>/put?str_key=<your_key_value>&data=<your_data>&expiration_date=<dd-mm-yyyy>
+   *  GET request - <ELB public DNS name>/get?str_key=<your_key_value>
