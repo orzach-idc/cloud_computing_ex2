@@ -182,9 +182,8 @@ def get_instance_public_ip(instance_id):
     }]
     return ec2.describe_instances(Filters=filters)['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
-def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_region):
-    
-    global ec2_user_data
+def create_ec2_user_data(aws_access_key_id, aws_secret_access_key, aws_default_region):
+   
     ec2_user_data = f"""#cloud-config
 
     runcmd:
@@ -194,11 +193,12 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_aceess_key, aws_default_r
     - chmod 777 *.sh
     - ./ec2_init.sh
     - sudo aws configure set aws_access_key_id {aws_access_key_id}
-    - sudo aws configure set aws_secret_access_key {aws_secret_aceess_key} 
+    - sudo aws configure set aws_secret_access_key {aws_secret_access_key} 
     - sudo aws configure set aws_default_region {aws_default_region}
     - sudo python3 elb.py
     - sudo python3 ec2_server.py
     """
+    return ec2_user_data
     
 def create_ec2_instances(num_instances, ec2_user_data):
     print(ec2_user_data)
