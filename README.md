@@ -1,4 +1,4 @@
-# **Caching in the cloud App by Hila Mizrahi and Or Zachchinsky**
+# **Caching in the cloud app by Hila Mizrahi and Or Zachchinsky**
 
 **Please follow the following steps to start your app:**
 - 
