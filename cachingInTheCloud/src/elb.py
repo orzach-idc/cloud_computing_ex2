@@ -184,7 +184,7 @@ def get_instance_public_ip(instance_id):
 
 def create_ec2_user_data(aws_access_key_id, aws_secret_access_key, aws_default_region):
    
-    ec2_user_data = """#cloud-config
+    ec2_user_data = f"""#cloud-config
 
     runcmd:
     - cd home/ubuntu
