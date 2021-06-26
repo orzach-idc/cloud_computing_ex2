@@ -187,7 +187,7 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_access_key, aws_default_r
     ec2_user_data = f"""#cloud-config
 
     runcmd:
-    - cd home/ubuntu
+    - cd /home/ubuntu
     - git clone https://github.com/orzach-idc/cloud_computing_ex2.git
     - cd cloud_computing_ex2/cachingInTheCloud/src
     - chmod 777 *.sh
