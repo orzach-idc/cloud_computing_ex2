@@ -13,11 +13,10 @@
 
 **Step 5** - run the init2.sh script - "./init2.sh" (you will get the ELB public DNS name as output)
 
-**Step 6** - run this command - "sudo python3 create_ec2.py <number of instances to create - minimum 2> $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
+**Step 6** - run this command - "sudo python3 create_ec2.py <number of instances to create - minimum 2> $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION"
 
 **Step 7** - wait until all your instances are healthy (you have two ways to check it):
 
-    - 
-  a
-  b
+    *  - aaa
+    *  - bbb
   
