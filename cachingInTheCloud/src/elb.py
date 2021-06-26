@@ -187,17 +187,18 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_access_key, aws_default_r
     ec2_user_data = f"""#cloud-config
 
     runcmd:
-    - cd /home/ubuntu
-    - git clone https://github.com/orzach-idc/cloud_computing_ex2.git
+    - git clone https://github.com/orzach-idc/cloud_computing_ex2.git /home/ubuntu/
     - cd cloud_computing_ex2/cachingInTheCloud/src
-    - chmod 777 *.sh
-    - ./ec2_init.sh
-    - sudo aws configure set aws_access_key_id {aws_access_key_id}
-    - sudo aws configure set aws_secret_access_key {aws_secret_access_key} 
-    - sudo aws configure set region {aws_default_region}
-    - sudo python3 elb.py
-    - sudo python3 ec2_server.py
     """
+    
+#     - chmod 777 *.sh
+#     - ./ec2_init.sh
+#     - sudo aws configure set aws_access_key_id {aws_access_key_id}
+#     - sudo aws configure set aws_secret_access_key {aws_secret_access_key} 
+#     - sudo aws configure set region {aws_default_region}
+#     - sudo python3 elb.py
+#     - sudo python3 ec2_server.py
+#     """
     return ec2_user_data
     
 def create_ec2_instances(num_instances, ec2_user_data):
