@@ -18,5 +18,6 @@
 **Step 7** - wait until all your instances are healthy (you have two ways to check it):
 
     - 
-    -
-    -
+  a
+  b
+  
