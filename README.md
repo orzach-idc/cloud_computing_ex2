@@ -7,7 +7,7 @@
 
 **Step 2** - go to the src folder inside the cloned repository in your terminal (cd cloud_computing_ex2/cachingInTheCloud/src)
 
-**Step 3** - run the init1.sh script - "./init1.sh" 
+**Step 3** - run the init.sh script - "./init.sh" 
 
 **Step 4** - enter your AWS credntials to finish the AWS configure command 
 
