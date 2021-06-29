@@ -85,18 +85,28 @@ def redirect_request(ip, request_args, request_path):
             response = read_request_handler(request_args['str_key'])
         
     return response
+
+def is_expirtion_date_invalid(request_args['expiration_date']):
+     date = request_args['expiration_date'].split('-')
+     if (date[0].isnumeric() and len(date) == 2) and (date[1].isnumeric() and len(date) == 2) and (date[2].isnumeric() and len(date) == 4):
+        return False
+     return True
     
 def put_request_handler(ip1, ip2, request_args):
+    if len(request_args) < 3:
+        return "Invalid put request - Invalid number of arguments" 
+    elif is_expirtion_date_invalid():
+        return "Invalid put request - Invalid expiration date" 
     response1 = redirect_request(ip1, request_args, 'write')
     response2 = redirect_request(ip2, request_args, 'write')
-  
+    
     return response1 if response1 != None else response2
 
 def get_request_handler(ip1, ip2, request_args):
     response1 = redirect_request(ip1, request_args, 'read')
     response2 = redirect_request(ip2, request_args, 'read')
-  
-    return response1 if response1 != None else response2
+    error_message = "Key not found - Please enter a valid key" 
+    return response1 if response1 != error_message else response2
 
 def write_request_handler(str_key, data, expiration_date):
     instance_cache[str_key] = [data, expiration_date]
@@ -111,7 +121,7 @@ def read_request_handler(str_key):
         else:
             instance_cache.pop(str_key)
         
-    return None
+    return "Key not found - Please enter a valid key" 
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -152,7 +162,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             self.wfile.write("write request response: {}".format(response).encode('utf-8'))
             
         elif f.path == "/put":
-#             send write request to 2 ec2 by getting ip from hash func
+#           send write request to 2 ec2 by getting ip from hash func
             live_nodes, sick = get_live_nodes()
             node_id1 = hash_func(f.args['str_key'], len(live_nodes))
             node_id2 = (node_id1 + 1) % len(live_nodes)
