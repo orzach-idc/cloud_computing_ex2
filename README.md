@@ -9,7 +9,7 @@
 
 **Step 3** - run the init.sh script - "./init.sh" 
 
-**Step 4** - enter your AWS credntials to finish the AWS configure command 
+**Step 4** - enter your AWS credntials to finish the "sudo aws configure" command 
 
 **Step 5** - run the following commands:
    *  export AWS_ACCESS_KEY_ID=$(sudo aws configure get aws_access_key_id)
