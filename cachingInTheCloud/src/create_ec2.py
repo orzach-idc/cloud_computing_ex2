@@ -17,7 +17,7 @@ images_dict_by_region = {
     'sa-east-1': 'ami-054a31f1b3bf90920'}
 
 if __name__=="__main__":
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 5:
         print(len(sys.argv))
         print("""problem with aws credentials please run the following commands:
         - sudo aws configure
