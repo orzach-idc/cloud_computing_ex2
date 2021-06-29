@@ -86,7 +86,7 @@ def redirect_request(ip, request_args, request_path):
         
     return response
 
-def is_expirtion_date_invalid(request_args['expiration_date']):
+def is_expirtion_date_invalid(request_args):
      date = request_args['expiration_date'].split('-')
      if (date[0].isnumeric() and len(date) == 2) and (date[1].isnumeric() and len(date) == 2) and (date[2].isnumeric() and len(date) == 4):
         return False
@@ -95,7 +95,7 @@ def is_expirtion_date_invalid(request_args['expiration_date']):
 def put_request_handler(ip1, ip2, request_args):
     if len(request_args) < 3:
         return "Invalid put request - Invalid number of arguments" 
-    elif is_expirtion_date_invalid():
+    elif is_expirtion_date_invalid(request_args):
         return "Invalid put request - Invalid expiration date" 
     response1 = redirect_request(ip1, request_args, 'write')
     response2 = redirect_request(ip2, request_args, 'write')
