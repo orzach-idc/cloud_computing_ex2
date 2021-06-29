@@ -21,7 +21,9 @@ if __name__=="__main__":
         print(len(sys.argv))
         print("""problem with aws credentials please run the following commands:
         - sudo aws configure
-        - ./init2.sh
+        - export AWS_ACCESS_KEY_ID=$(sudo aws configure get aws_access_key_id)
+        - export AWS_SECRET_ACCESS_KEY=$(sudo aws configure get aws_secret_access_key)
+        - export AWS_DEFAULT_REGION=$(sudo aws configure get region)
         - sudo python3 create_ec2.py <num of instances> $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION
         """)
 
