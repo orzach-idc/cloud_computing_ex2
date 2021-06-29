@@ -26,5 +26,5 @@
 
 **Step 9** - start using the app by sending the following http requests:
 
-   *  POST request - <ELB public DNS name>/put?str_key=<your_key_value>&data=<your_data>&expiration_date=<dd-mm-yyyy>
+   *  POST request - <ELB public DNS name>/put?str_key=<your_key_value>&data=<your_data>&expiration_date=<your_date in the format dd-mm-yyyy>
    *  GET request - <ELB public DNS name>/get?str_key=<your_key_value>
