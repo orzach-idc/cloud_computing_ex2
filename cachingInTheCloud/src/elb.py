@@ -201,10 +201,10 @@ def create_ec2_user_data(aws_access_key_id, aws_secret_access_key, aws_default_r
     
     return ec2_user_data
     
-def create_ec2_instances(num_instances, ec2_user_data):
+def create_ec2_instances(num_instances, ec2_user_data, image_id):
 
     instances = ec2.run_instances(
-          ImageId = 'ami-09e67e426f25ce0d7',
+          ImageId = image_id,
           MinCount = int(num_instances), 
           MaxCount = int(num_instances), 
           InstanceType = "t2.micro",
