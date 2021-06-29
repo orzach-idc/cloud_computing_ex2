@@ -16,7 +16,7 @@
    *  export AWS_SECRET_ACCESS_KEY=$(sudo aws configure get aws_secret_access_key)
    *  export AWS_DEFAULT_REGION=$(sudo aws configure get region)
 
-**Step 6** - create the app infrastructure(ELB, securtiy groupt, etc..) by running this command  - "sudo python3 elb.py
+**Step 6** - create the app infrastructure(ELB, securtiy groupt, etc..) by running this command  - "sudo python3 elb.py"
 **Step 7** - create instances by running this command - "sudo python3 create_ec2.py <number of instances to create - minimum 2> $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_DEFAULT_REGION"
 
 **Step 8** - wait until all your instances are healthy (you have two ways to check it):
