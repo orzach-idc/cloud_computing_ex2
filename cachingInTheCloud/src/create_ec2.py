@@ -36,7 +36,7 @@ if __name__=="__main__":
         instance_id = instances["Instances"][i]["InstanceId"]
         ec2_resource = boto3.resource('ec2')
         instance = ec2_resource.Instance(instance_id) 
-        print("Please wait, instances are being initiated..")
+        print(f"Please wait, instance {i + 1} is being initiated..")
         instance.wait_until_running()
         elb.register_instance_in_elb(instance_id)
-        print("Instances are running")
+        print(f"Instance {i + 1} created successfully")
