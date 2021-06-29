@@ -88,7 +88,7 @@ def redirect_request(ip, request_args, request_path):
 
 def is_expirtion_date_invalid(request_args):
      date = request_args['expiration_date'].split('-')
-     if (date[0].isnumeric() and len(date) == 2) and (date[1].isnumeric() and len(date) == 2) and (date[2].isnumeric() and len(date) == 4):
+     if (date[0].isnumeric() and len(date[0]) == 2) and (date[1].isnumeric() and len(date[1]) == 2) and (date[2].isnumeric() and len(date[2]) == 4):
         return False
      return True
     
